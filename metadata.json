@@ -1,0 +1,6 @@
+
+{
+  "name": "Valentine's Surprise",
+  "description": "A classy, minimal, and interactive Valentine's Day website with an evasive 'No' button and an elegant 'Yes' screen.",
+  "requestFramePermissions": ["microphone"]
+}
