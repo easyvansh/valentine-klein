@@ -48,10 +48,8 @@ const AudioPlayer: React.FC<Props> = ({ src, isEnabled, onToggle }) => {
     audio.volume = 0.75;
 
     if (isEnabled) {
-      // Always jump into the loop window when enabled
-      if (audio.currentTime < loopStart || (loopEnd !== null && audio.currentTime > loopEnd)) {
-        audio.currentTime = loopStart;
-      }
+      // Start from the beginning on each enable
+      audio.currentTime = 0;
 
       audio.play().then(() => {
         setShowHint(false);
@@ -61,6 +59,7 @@ const AudioPlayer: React.FC<Props> = ({ src, isEnabled, onToggle }) => {
       });
     } else {
       audio.pause();
+      audio.currentTime = 0;
     }
   }, [isEnabled, loopStart, loopEnd]);
 
