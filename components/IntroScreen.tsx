@@ -56,7 +56,7 @@ const IntroScreen: React.FC<Props> = ({ onComplete }) => {
           onClick={(e) => { e.stopPropagation(); onComplete(); }}
           className="px-8 py-3 bg-pink-200 text-gray-700 rounded-full border border-pink-100 shadow-sm hover:shadow-md hover:border-pink-200 transition-all active:scale-95 text-sm uppercase tracking-widest font-medium"
         >
-        or click here
+        Start
         </button>
       </div>
       
