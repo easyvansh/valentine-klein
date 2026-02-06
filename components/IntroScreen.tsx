@@ -20,7 +20,7 @@ const IntroScreen: React.FC<Props> = ({ onComplete }) => {
     } else {
       setShowButton(true);
       // Auto advance after 4s on the last line
-      const autoTimer = setTimeout(onComplete, 7000);
+      const autoTimer = setTimeout(onComplete, 10000);
       return () => clearTimeout(autoTimer);
     }
   }, [currentLineIndex, onComplete]);
@@ -42,7 +42,7 @@ const IntroScreen: React.FC<Props> = ({ onComplete }) => {
         {CONFIG.introLines.slice(0, currentLineIndex + 1).map((line, idx) => (
           <p 
             key={idx}
-            className={`intro-text font-serif text-2xl md:text-3xl text-gray-700 transition-all duration-1000 ${
+            className={`intro-text font-serif text-2xl md:text-3xl text-gray-700 transition-all duration-900 ${
               idx === currentLineIndex ? 'opacity-100' : 'opacity-40 text-xl'
             }`}
           >
@@ -56,7 +56,7 @@ const IntroScreen: React.FC<Props> = ({ onComplete }) => {
           onClick={(e) => { e.stopPropagation(); onComplete(); }}
           className="px-8 py-3 bg-pink-200 text-gray-700 rounded-full border border-pink-100 shadow-sm hover:shadow-md hover:border-pink-200 transition-all active:scale-95 text-sm uppercase tracking-widest font-medium"
         >
-          Continue
+        or click here
         </button>
       </div>
       

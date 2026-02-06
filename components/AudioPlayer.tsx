@@ -49,8 +49,11 @@ const AudioPlayer: React.FC<Props> = ({ src, isEnabled, onToggle }) => {
 
     if (isEnabled) {
       // Start from the beginning on each enable
-      audio.currentTime = 0;
-
+      audio.currentTime = loopStart; 
+       if (audio && showHint) {
+        audio.play().then(() => setShowHint(false)).catch(() => {});
+        return;
+      }
       audio.play().then(() => {
         setShowHint(false);
       }).catch(() => {
@@ -67,7 +70,7 @@ const AudioPlayer: React.FC<Props> = ({ src, isEnabled, onToggle }) => {
     <div className="fixed top-8 right-8 z-[100] flex items-center gap-4">
       {showHint && isEnabled && (
         <span className="text-[10px] text-rose-300 font-medium uppercase tracking-widest bg-white px-3 py-1 rounded-full shadow-sm animate-pulse hidden md:inline">
-          Tap to enable sound
+          Toggle to enable sound
         </span>
       )}
 

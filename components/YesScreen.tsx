@@ -59,7 +59,7 @@ const YesScreen: React.FC<Props> = ({ onRestart }) => {
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[500px] relative">
+    <div className="flex flex-col items-center justify-center min-h-[1000px] relative">
       <div ref={petalsContainerRef} className="fixed inset-0 pointer-events-none z-0" />
 
       <div className="z-10 bg-white/60 backdrop-blur-lg p-12 md:p-20 rounded-[3rem] border border-white shadow-2xl text-center space-y-10 max-w-lg w-full transform scale-110 animate-in fade-in slide-in-from-bottom-10 duration-1000">

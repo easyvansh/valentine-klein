@@ -33,7 +33,7 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
     const dx = mousePos.current.x - btnCenterX;
     const dy = mousePos.current.y - btnCenterY;
     const distance = Math.sqrt(dx * dx + dy * dy);
-
+    
     // Evasion radius
     if (distance < 150) {
       setNoAttempts(prev => prev + 1);
@@ -118,11 +118,14 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
           </button>
         </div>
 
-        {noAttempts > 0 && (
-          <p className="text-xs text-rose-300 font-medium italic tracking-wide animate-bounce">
-            {microcopy}
-          </p>
-        )}
+        <p
+  key={noAttempts}
+  className="text-xs text-rose-400 font-medium italic tracking-wide transition-all duration-500 opacity-100"
+>
+  {microcopy}
+</p>
+
+        
       </div>
     </div>
   );
