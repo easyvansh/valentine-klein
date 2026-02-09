@@ -13,16 +13,16 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [noPos, setNoPos] = useState({ x: 0, y: 0 });
   const mousePos = useRef({ x: 0, y: 0 });
-  
+  const teaseCooldown = useRef(false);
+
   const handleYes = () => {
     if (CONFIG.emailMode === "emailjs") {
       sendEmailNotification().catch((err) =>
         console.error("Email failed:", err),
-    );
-  }
-  onYes();
-};
-const teaseCooldown = useRef(false);
+      );
+    }
+    onYes();
+  };
 
   const moveNoButton = useCallback(() => {
     if (!noButtonRef.current || !containerRef.current) return;
@@ -132,7 +132,7 @@ const teaseCooldown = useRef(false);
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-4">
           <button
             onClick={handleYes}
-            className="w-full md:w-auto px-24 py-12 bg-rose-500 border-red-600 text-white rounded-full font-medium shadow-lg hover:bg-rose-700 hover:scale-105 active:scale-95 transition-all duration-400 z-50"
+            className="w-full md:w-auto px-24 py-12 bg-rose-500 border-red-600 text-white rounded-full text-2xl md:text-3xl font-semibold shadow-lg hover:bg-rose-700 hover:scale-105 active:scale-95 transition-all duration-400 z-50"
           >
             Yes, I will
           </button>

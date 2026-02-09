@@ -49,22 +49,19 @@ const AudioPlayer: React.FC<Props> = ({ src, isEnabled, onToggle }) => {
 
     if (isEnabled) {
       // Start from the beginning on each enable
-      audio.currentTime = loopStart; 
-       if (audio && showHint) {
-        audio.play().then(() => setShowHint(false)).catch(() => {});
-        return;
-      }
-      audio.play().then(() => {
-        setShowHint(false);
-      }).catch(() => {
-        // Autoplay blocked until a user gesture
-        setShowHint(true);
-      });
+      audio.currentTime = loopStart;
+      audio
+        .play()
+        .then(() => setShowHint(false))
+        .catch(() => {
+          // Autoplay blocked until a user gesture
+          setShowHint(true);
+        });
     } else {
       audio.pause();
       audio.currentTime = 0;
     }
-  }, [isEnabled, loopStart, loopEnd]);
+  }, [isEnabled, loopStart]);
 
   return (
     <div className="fixed top-8 right-8 z-[100] flex items-center gap-4">

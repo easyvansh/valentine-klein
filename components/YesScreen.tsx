@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { CONFIG } from '../constants';
@@ -20,24 +19,25 @@ const YesScreen: React.FC<Props> = ({ onRestart }) => {
     for (let i = 0; i < 60; i++) {
       const petal = document.createElement('div');
       const size = Math.random() * 15 + 10;
-      
+
       petal.className = 'absolute rounded-full pointer-events-none opacity-0';
       petal.style.width = `${size}px`;
       petal.style.height = `${size * 0.8}px`;
       petal.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
       petal.style.borderRadius = '0% 100% 0% 100% / 0% 100% 0% 100%';
-      
+
       container.appendChild(petal);
 
       const startX = Math.random() * window.innerWidth;
       const startDelay = Math.random() * 3;
 
-      gsap.fromTo(petal, 
-        { 
-          x: startX, 
-          y: -50, 
+      gsap.fromTo(
+        petal,
+        {
+          x: startX,
+          y: -50,
           rotation: Math.random() * 360,
-          opacity: 0 
+          opacity: 0,
         },
         {
           y: window.innerHeight + 50,
@@ -48,33 +48,33 @@ const YesScreen: React.FC<Props> = ({ onRestart }) => {
           delay: startDelay,
           repeat: -1,
           ease: 'none',
-          onUpdate: function() {
-              // Floating drift effect
-              const time = this.targets()[0]._gsap.time;
-              gsap.set(petal, { x: startX + Math.sin(time) * 30 });
-          }
+          onUpdate: function () {
+            // Floating drift effect
+            const time = this.targets()[0]._gsap.time;
+            gsap.set(petal, { x: startX + Math.sin(time) * 30 });
+          },
         }
       );
     }
   }, []);
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-[1000px] relative">
+    <div className="relative flex min-h-screen flex-col items-center justify-center px-6 py-16">
       <div ref={petalsContainerRef} className="fixed inset-0 pointer-events-none z-0" />
 
-      <div className="z-10 bg-white/60 backdrop-blur-lg p-12 md:p-20 rounded-[3rem] border border-white shadow-2xl text-center space-y-10 max-w-lg w-full transform scale-110 animate-in fade-in slide-in-from-bottom-10 duration-1000">
+      <div className="z-10 w-full max-w-xl space-y-10 rounded-[3rem] border border-white/60 bg-white/70 p-10 text-center shadow-2xl backdrop-blur-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 md:p-16">
         <div className="relative inline-block">
-          <div className="text-6xl mb-4 animate-bounce">💖</div>
-          <h2 className="font-serif text-3xl md:text-5xl text-rose-600">
+          <div className="mb-4 text-6xl animate-bounce">💖</div>
+          <h2 className="font-serif text-3xl text-rose-600 md:text-5xl">
             {CONFIG.yesMessageTitle}
           </h2>
         </div>
-        
+
         <div className="space-y-4">
-          <p className="text-gray-700 text-lg leading-relaxed font-light">
+          <p className="text-balance text-lg font-light leading-relaxed text-gray-700">
             {CONFIG.yesMessageBody}
           </p>
-          <p className="font-serif text-xl text-rose-400 italic pt-2">
+          <p className="pt-2 font-serif text-xl italic text-rose-400">
             {CONFIG.signature}
           </p>
         </div>

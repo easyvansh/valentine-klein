@@ -10,12 +10,12 @@ export const CONFIG: Config = {
   ],
   questionTitle: "Will you be my Valentine?",
   subtext: "No pressure. Just a soft, real, honest “yes” if your heart says so.",
-  yesMessageTitle: "You said yes, I knew it...",
-  yesMessageBody: "I’d love to steal a little time with you this Valentine’s. Thank you for being you.",
-  signature: "- Vansh",
-  audioSrc: "./assets/mj.mp3",
+  yesMessageTitle: "Rik's First Valentines!!!",
+  yesMessageBody: "I’d love to steal you this Valentine’s. Thank you for being you.",
+  signature: "- Kaden",
+  audioSrc: "/assets/kmph.mp3",
   audioLoop: {
-    start: 60,   // seconds
+    start: 56,   // seconds
     end: 300     // seconds
   },
   emailMode: 'none', // Set to 'emailjs' and fill the below if you have an account
