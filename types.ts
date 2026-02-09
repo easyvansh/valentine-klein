@@ -8,10 +8,23 @@ export interface Config {
   yesMessageTitle: string;
   yesMessageBody: string;
   signature: string;
-  audioSrc: string;
-  audioLoop: {
-    start: number;
-    end: number;
+  defaultAudioKey: 'awnw' | 'pp' | 'kmph';
+  audioTracks: {
+    awnw: {
+      src: string;
+      start: number;
+      end: number | null;
+    };
+    pp: {
+      src: string;
+      start: number;
+      end: number | null;
+    };
+    kmph: {
+      src: string;
+      start: number;
+      end: number | null;
+    };
   };
   emailMode: 'emailjs' | 'none';
   emailjs: {

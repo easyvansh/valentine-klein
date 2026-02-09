@@ -22,12 +22,44 @@ const App: React.FC = () => {
   const [screen, setScreen] = useState<ScreenState>("intro");
   const [isAudioEnabled, setIsAudioEnabled] = useState(() => {
     const saved = localStorage.getItem("valentine-audio-enabled");
+    return saved === null ? true : saved === "true";
+  });
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("valentine-dark-mode");
     return saved === null ? false : saved === "true";
   });
+  const defaultTrack = CONFIG.audioTracks[CONFIG.defaultAudioKey];
+  const [audioSrc, setAudioSrc] = useState(defaultTrack.src);
+  const [audioLoopStart, setAudioLoopStart] = useState(defaultTrack.start);
+  const [audioLoopEnd, setAudioLoopEnd] = useState<number | null>(defaultTrack.end);
 
-  const handleStart = useCallback(() => setScreen("question"), []);
-  const handleYes = useCallback(() => setScreen("yes"), []);
-  const handleRestart = useCallback(() => setScreen("intro"), []);
+  const handleStart = useCallback(() => {
+    const questionTrack = CONFIG.audioTracks.pp;
+    setAudioSrc(questionTrack.src);
+    setAudioLoopStart(questionTrack.start);
+    setAudioLoopEnd(questionTrack.end);
+    setIsAudioEnabled(true);
+    localStorage.setItem("valentine-audio-enabled", "true");
+    setScreen("question");
+  }, []);
+  const handleYes = useCallback(() => {
+    const yesTrack = CONFIG.audioTracks.kmph;
+    setAudioSrc(yesTrack.src);
+    setAudioLoopStart(yesTrack.start);
+    setAudioLoopEnd(yesTrack.end);
+    setIsAudioEnabled(true);
+    localStorage.setItem("valentine-audio-enabled", "true");
+    setScreen("yes");
+  }, []);
+  const handleRestart = useCallback(() => {
+    const baseTrack = CONFIG.audioTracks[CONFIG.defaultAudioKey];
+    setAudioSrc(baseTrack.src);
+    setAudioLoopStart(baseTrack.start);
+    setAudioLoopEnd(baseTrack.end);
+    setIsAudioEnabled(true);
+    localStorage.setItem("valentine-audio-enabled", "true");
+    setScreen("intro");
+  }, []);
 
   const toggleAudio = useCallback(() => {
     setIsAudioEnabled((prev) => {
@@ -36,20 +68,42 @@ const App: React.FC = () => {
       return newVal;
     });
   }, []);
+  const toggleDark = useCallback(() => {
+    setIsDark((prev) => {
+      const newVal = !prev;
+      localStorage.setItem("valentine-dark-mode", String(newVal));
+      return newVal;
+    });
+  }, []);
 
   return (
-    <div className="relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden bg-[#fcf9f7]">
+    <div
+      className={`relative min-h-screen w-full flex flex-col items-center justify-center overflow-hidden transition-colors duration-700 ${
+        isDark ? "bg-[#2b0b0b] text-[#f1e7d6]" : "bg-[#fcf9f7]"
+      }`}
+    >
       {/* Decorative Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-0 opacity-20">
+      <div
+        className={`absolute top-0 left-0 w-full h-full pointer-events-none z-0 ${
+          isDark ? "opacity-100" : "opacity-20"
+        }`}
+      >
+        {isDark && (
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(61,16,16,0.9)_0%,_rgba(16,6,6,0.98)_70%)]" />
+        )}
         {/* <div className="absolute top-10 left-10 w-64 h-64 bg-pink-100 rounded-full blur-3xl animate-pulse" /> */}
         {/* <div className="absolute bottom-10 right-10 w-96 h-96 bg-rose-50 rounded-full blur-3xl animate-pulse" /> */}
       </div>
 
       {/* Global Controls */}
       <AudioPlayer
-        src={CONFIG.audioSrc}
+        src={audioSrc}
+        loopStart={audioLoopStart}
+        loopEnd={audioLoopEnd}
         isEnabled={isAudioEnabled}
         onToggle={toggleAudio}
+        isDark={isDark}
+        onToggleDark={toggleDark}
       />
 
       {/* Screens (Animated) */}
@@ -64,15 +118,19 @@ const App: React.FC = () => {
             transition={pageTransition}
             style={{ willChange: "transform, opacity, filter" }}
           >
-            {screen === "intro" && <IntroScreen onComplete={handleStart} />}
-            {screen === "question" && <QuestionScreen onYes={handleYes} />}
-            {screen === "yes" && <YesScreen onRestart={handleRestart} />}
+            {screen === "intro" && <IntroScreen onComplete={handleStart} isDark={isDark} />}
+            {screen === "question" && <QuestionScreen onYes={handleYes} isDark={isDark} />}
+            {screen === "yes" && <YesScreen onRestart={handleRestart} isDark={isDark} />}
           </motion.div>
         </AnimatePresence>
       </main>
 
       {/* Minimal Footer */}
-      <footer className="absolute bottom-6 text-[10px] text-gray-400 uppercase tracking-widest pointer-events-none">
+      <footer
+        className={`absolute bottom-6 text-[10px] uppercase tracking-widest pointer-events-none ${
+          isDark ? "text-rose-200/70" : "text-gray-400"
+        }`}
+      >
         Made with love
       </footer>
     </div>

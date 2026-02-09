@@ -3,9 +3,9 @@ import { Config } from './types';
 
 export const CONFIG: Config = {
   introLines: [
-    "Hey you,",
-    "Pause...",
-    "I made something small just for you.",
+    "Hey there",
+    "Slow down for a second.",
+    "I made something just for you.",
     "Ready?"
   ],
   questionTitle: "Will you be my Valentine?",
@@ -13,10 +13,23 @@ export const CONFIG: Config = {
   yesMessageTitle: "Rik's First Valentines!!!",
   yesMessageBody: "I’d love to steal you this Valentine’s. Thank you for being you.",
   signature: "- Kaden",
-  audioSrc: "/assets/kmph.mp3",
-  audioLoop: {
-    start: 56,   // seconds
-    end: 300     // seconds
+  defaultAudioKey: 'awnw',
+  audioTracks: {
+    awnw: {
+      src: "/assets/awnw.mp3",
+      start: 12,
+      end: null
+    },
+    pp: {
+      src: "/assets/pp.mp3",
+      start: 28,
+      end: null
+    },
+    kmph: {
+      src: "/assets/kmph.mp3",
+      start: 55,
+      end: 300
+    }
   },
   emailMode: 'none', // Set to 'emailjs' and fill the below if you have an account
   emailjs: {
