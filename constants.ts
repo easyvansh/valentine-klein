@@ -10,9 +10,9 @@ export const CONFIG: Config = {
   ],
   questionTitle: "Will you be my Valentine?",
   subtext: "No pressure. Just a soft, real, honest “yes” if your heart says so.",
-  yesMessageTitle: "Rik's First Valentines!!!",
+  yesMessageTitle: "Tia's Best Valentines!!!",
   yesMessageBody: "I’d love to steal you this Valentine’s. Thank you for being you.",
-  signature: "- Kaden",
+  signature: "- Vansh",
   defaultAudioKey: 'awnw',
   audioTracks: {
     awnw: {
@@ -26,8 +26,8 @@ export const CONFIG: Config = {
       end: null
     },
     kmph: {
-      src: "/assets/kmph.mp3",
-      start: 55,
+      src: "/assets/light.mp3",
+      start: 25,
       end: 300
     }
   },
