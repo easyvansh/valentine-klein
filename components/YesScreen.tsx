@@ -4,9 +4,10 @@ import { CONFIG } from '../constants';
 
 interface Props {
   onRestart: () => void;
+  isDark: boolean;
 }
 
-const YesScreen: React.FC<Props> = ({ onRestart }) => {
+const YesScreen: React.FC<Props> = ({ onRestart, isDark }) => {
   const petalsContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -62,26 +63,40 @@ const YesScreen: React.FC<Props> = ({ onRestart }) => {
     <div className="relative flex min-h-screen flex-col items-center justify-center px-6 py-16">
       <div ref={petalsContainerRef} className="fixed inset-0 pointer-events-none z-0" />
 
-      <div className="z-10 w-full max-w-xl space-y-10 rounded-[3rem] border border-white/60 bg-white/70 p-10 text-center shadow-2xl backdrop-blur-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 md:p-16">
+      <div
+        className={`z-10 w-full max-w-xl space-y-10 rounded-[3rem] p-10 text-center shadow-2xl backdrop-blur-lg animate-in fade-in slide-in-from-bottom-10 duration-1000 md:p-16 ${
+          isDark
+            ? "border border-[#2a1414] bg-[#120707]/85 shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+            : "border border-white/60 bg-white/70"
+        }`}
+      >
         <div className="relative inline-block">
           <div className="mb-4 text-6xl animate-bounce">💖</div>
-          <h2 className="font-serif text-3xl text-rose-600 md:text-5xl">
+          <h2 className={`font-serif text-3xl md:text-5xl ${isDark ? "text-[#f1e7d6]" : "text-rose-600"}`}>
             {CONFIG.yesMessageTitle}
           </h2>
         </div>
 
         <div className="space-y-4">
-          <p className="text-balance text-lg font-light leading-relaxed text-gray-700">
+          <p
+            className={`text-balance text-lg font-light leading-relaxed ${
+              isDark ? "text-[#cdbba8]" : "text-gray-700"
+            }`}
+          >
             {CONFIG.yesMessageBody}
           </p>
-          <p className="pt-2 font-serif text-xl italic text-rose-400">
+          <p className={`pt-2 font-serif text-xl italic ${isDark ? "text-[#b9878c]" : "text-rose-400"}`}>
             {CONFIG.signature}
           </p>
         </div>
 
         <button
           onClick={onRestart}
-          className="px-6 py-2 text-gray-400 hover:text-rose-400 transition-colors text-xs uppercase tracking-[0.2em] font-medium border-b border-transparent hover:border-rose-200"
+          className={`px-6 py-2 transition-colors text-xs uppercase tracking-[0.2em] font-medium border-b border-transparent ${
+            isDark
+              ? "text-[#cdbba8] hover:text-[#f1e7d6] hover:border-[#5a3030]"
+              : "text-gray-400 hover:text-rose-400 hover:border-rose-200"
+          }`}
         >
           Start Over
         </button>

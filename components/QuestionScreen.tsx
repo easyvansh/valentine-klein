@@ -5,9 +5,10 @@ import { sendEmailNotification } from "../services/emailService";
 
 interface Props {
   onYes: () => void;
+  isDark: boolean;
 }
 
-const QuestionScreen: React.FC<Props> = ({ onYes }) => {
+const QuestionScreen: React.FC<Props> = ({ onYes, isDark }) => {
   const [noAttempts, setNoAttempts] = useState(0);
   const noButtonRef = useRef<HTMLButtonElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -119,12 +120,26 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
       ref={containerRef}
       className="flex flex-col items-center justify-center space-y-16 animate-in fade-in zoom-in duration-1000"
     >
-      <div className="bg-white/40 backdrop-blur-md p-10 md:p-16 rounded-3xl border border-white/120 shadow-xl text-center space-y-12 w-full">
+      <div
+        className={`p-10 md:p-16 rounded-3xl text-center space-y-12 w-full backdrop-blur-md ${
+          isDark
+            ? "bg-[#120707]/85 border border-[#2a1414] shadow-[0_20px_60px_rgba(0,0,0,0.6)]"
+            : "bg-white/40 border border-white/120 shadow-xl"
+        }`}
+      >
         <div className="space-y-4">
-          <h1 className="font-serif text-4xl md:text-5xl text-gray-800 leading-tight">
+          <h1
+            className={`font-serif text-4xl md:text-5xl leading-tight ${
+              isDark ? "text-[#f1e7d6]" : "text-gray-800"
+            }`}
+          >
             {CONFIG.questionTitle}
           </h1>
-          <p className="text-gray-500 font-light max-w-sm mx-auto">
+          <p
+            className={`font-light max-w-sm mx-auto ${
+              isDark ? "text-[#cdbba8]" : "text-gray-500"
+            }`}
+          >
             {CONFIG.subtext}
           </p>
         </div>
@@ -132,7 +147,11 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
         <div className="flex flex-col md:flex-row items-center justify-center gap-6 pt-4">
           <button
             onClick={handleYes}
-            className="w-full md:w-auto px-24 py-12 bg-rose-500 border-red-600 text-white rounded-full text-2xl md:text-3xl font-semibold shadow-lg hover:bg-rose-700 hover:scale-105 active:scale-95 transition-all duration-400 z-50"
+            className={`w-full md:w-auto px-24 py-12 rounded-full text-2xl md:text-3xl font-semibold shadow-lg active:scale-95 transition-all duration-400 z-50 ${
+              isDark
+                ? "bg-[#c10015] border-[#7f0a14] text-white hover:bg-[#a80012] hover:scale-105"
+                : "bg-rose-500 border-red-600 text-white hover:bg-rose-700 hover:scale-105"
+            }`}
           >
             Yes, I will
           </button>
@@ -152,7 +171,11 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
               // Force a move the moment they get close (pre-click)
               moveNoButton();
             }}
-            className="w-full md:w-auto px-12 py-6 bg-gray-100 text-gray-500 rounded-full font-medium border border-gray-700  select-none"
+            className={`w-full md:w-auto px-12 py-6 rounded-full font-medium select-none ${
+              isDark
+                ? "bg-[#111517] text-[#cdbba8] border border-[#2b2f33]"
+                : "bg-gray-100 text-gray-500 border border-gray-700"
+            }`}
           >
             No
           </button>
@@ -165,12 +188,14 @@ const QuestionScreen: React.FC<Props> = ({ onYes }) => {
           </button> */}
         </div>
         {noAttempts > 0 && (
-  <p
-    key={noAttempts}
-    className="text-xs text-rose-400 font-medium italic tracking-wide transition-all duration-500 opacity-100"
-  >
-    {microcopy}
-  </p>
+          <p
+            key={noAttempts}
+            className={`text-xs font-medium italic tracking-wide transition-all duration-500 opacity-100 ${
+              isDark ? "text-[#b9878c]" : "text-rose-400"
+            }`}
+          >
+            {microcopy}
+          </p>
 )}
 
       </div>
