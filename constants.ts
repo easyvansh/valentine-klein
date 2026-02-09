@@ -26,8 +26,8 @@ export const CONFIG: Config = {
       end: null
     },
     kmph: {
-      src: "/assets/light.mp3",
-      start: 25,
+      src: "/assets/kiss.mp3",
+      start: 70,
       end: 300
     }
   },
